@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nice-deployment
+spec:
+  replicas: 2 # Number of replicas (pods) to run
+  selector:
+    matchLabels:
+      app: nice
+  template:
+    metadata:
+      labels:
+        app: nice
+    spec:
+      containers:
+      - name: nice
+        image: gcr.io/di-services/testimages/nice:latest  
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: great-deployment
+spec:
+  replicas: 2 # Number of replicas (pods) to run
+  selector:
+    matchLabels:
+      app: great
+  template:
+    metadata:
+      labels:
+        app: great
+    spec:
+      containers:
+      - name: great
+        image: gcr.io/di-services/testimages/great:latest  
+        ports:
+        - containerPort: 8080
