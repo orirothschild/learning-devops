@@ -8,14 +8,30 @@
 <body>
   <h1>Click Me App</h1>
   <button id="clickButton">Click me!</button>
+  <button id="trackClicksButton">Track Clicks</button>
   <ul id="clickList"></ul>
   <script>
     const clickButton = document.getElementById('clickButton');
+    const trackClicksButton = document.getElementById('trackClicksButton');
     const clickList = document.getElementById('clickList');
 
     clickButton.addEventListener('click', async () => {
-      await fetch('/click', { method: 'POST' });
+      // Correct the endpoint to /click
+      await fetch('http://backend-service:3000/click', { method: 'POST' });
       updateClickList();
+    });
+
+    trackClicksButton.addEventListener('click', async () => {
+      // Update the URL to use the cluster-internal DNS name for the backend service
+      const response = await fetch('http://backend-service:3000/clicks', { method: 'GET' });
+      const clicks = await response.json();
+
+      clickList.innerHTML = '';
+      clicks.forEach((click) => {
+        const li = document.createElement('li');
+        li.textContent = new Date(click.timestamp).toLocaleString();
+        clickList.appendChild(li);
+      });
     });
 
     async function updateClickList() {
