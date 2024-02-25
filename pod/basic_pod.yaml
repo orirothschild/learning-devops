@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod  # הסוג של אובייקט שאנו מגדירים, במקרה זה הוא פוד.
+
+metadata:  # מידע נוסף על הפוד, כולל את שמו.
+  name: two-container-pod  # שם הפוד.
+
+spec:  # מפרט את המאפיינים של הפוד והקונטיינרים שלו.
+
+  containers:  # רשימת הקונטיינרים הרצים בתוך הפוד.
+  - name: main-container  # שם הקונטיינר הראשי.
+    image: nginx:latest  # התמונה (Docker image) של הקונטיינר.
+    ports:  # רשימת הפורטים שנפתחים בקונטיינר.
+    - containerPort: 80  # פורט 80 מופנה אל קונטיינר זה.
+    volumeMounts:  # פריסת האחסון בקונטיינר
+    - name: shared-volume  # שם האחסון שמתחבר לקונטיינר
+      mountPath: /data  # הנתיב בו תורכב תיקיית הקישור לאחסון.
+
+  initContainers:  # רשימת הקונטיינרים הרצים לפני הקונטיינרים הראשיים.
+  - name: init-container  # שם הקונטיינר האיניציאלי.
+    image: busybox:latest  # התמונה (Docker image) של הקונטיינר.
+    command: ['sh', '-c', 'echo Dummy data > /data/dummy.txt']  # פקודה שתורצה בתוך הקונטיינר.
+    volumeMounts:  # פריסת האחסון בקונטיינר
+    - name: shared-volume  # שם האחסון שמתחבר לקונטיינר
+      mountPath: /data  # הנתיב בו תורכב תיקיית הקישור לאחסון.
+
+  volumes:  # רשימת כלי האחסון שלנו
+  - name: shared-volume  # שם האחסון להיות מחוברת לקונטיינרים.
+    emptyDir: {}  # סוג הכונן האמור להיות נגיש לקונטיינרים, במקרה זה כונן ריק.
