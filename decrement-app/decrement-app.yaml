@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-decrementer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-decrementer
+  template:
+    metadata:
+      labels:
+        app: redis-decrementer
+    spec:
+      containers:
+      - name: redis-decrementer
+        image: your-docker-repo/redis-decrementer:latest
+        ports:
+        - containerPort: 8080

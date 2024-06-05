@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
       - name: web-counter
-        image: gcr.io/di-services/testimages/basic:latest  
+        image: gcr.io/di-services/testimages/basic:latest  # the image we created
         env:
         - name: REDIS_HOST
           value: "redis-service"
         - name: REDIS_PORT
-          value: "6379"
+          value: "6379" # values will be injected into the pod
         ports:
         - containerPort: 8080
 ---
@@ -35,3 +35,4 @@ spec:
       port: 8080
       targetPort: 8080
   type: LoadBalancer
+
