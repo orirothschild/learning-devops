@@ -1,0 +1,33 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-counter
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-counter
+  template:
+    metadata:
+      labels:
+        app: web-counter
+    spec:
+      containers:
+      - name: web-counter
+        image: gcr.io/di-services/testimages/basic:latest  
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-counter-service
+spec:
+  selector:
+    app: web-counter
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
