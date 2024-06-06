@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-incrementer-service
+  name: webcenter-incrementer-service
 spec:
   selector:
-    app: redis-incrementer
+    app: webcenter-incrementer
   ports:
     - protocol: TCP
       port: 80
@@ -14,10 +14,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-decrementer-service
+  name: webcenter-decrementer-service
 spec:
   selector:
-    app: redis-decrementer
+    app: webcenter-decrementer
   ports:
     - protocol: TCP
       port: 80

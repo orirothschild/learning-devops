@@ -1,10 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: redis-app-ingress
+  name: my-ingress
+  namespace: sideproj
   annotations:
     kubernetes.io/ingress.class: "nginx"  # Use the appropriate ingress class
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/healthcheck-path: /health  # Health check path
 spec:
   tls:
     - hosts:
@@ -18,13 +20,46 @@ spec:
           path: "/increment"
           backend:
             service:
-              name: redis-incrementer-service
+              name: webcenter-incrementer-service
               port:
                 number: 80
         - pathType: Prefix
           path: "/decrement"
           backend:
             service:
-              name: redis-decrementer-service
+              name: webcenter-decrementer-service
               port:
                 number: 80
+tls:
+  - hosts:
+    - nice.services.deepinstinctweb.com
+    secretName: tls-secret
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: my-ingress
+#   annotations:
+#     nginx.ingress.kubernetes.io/healthcheck-path: /health  # Health check path
+# spec:
+#   rules:
+#   - host: nice.services.deepinstinctweb.com
+#     http:
+#       paths:
+#       - path: /nice
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: nice-clusterip
+#             port:
+#               number: 80
+#       - path: /great
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: great-clusterip
+#             port:
+#               number: 80
+#   tls:
+#   - hosts:
+#     - nice.services.deepinstinctweb.com
+#     secretName: tls-secret

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-decrementer
+  name: webcenter-decrementer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis-decrementer
+      app: webcenter-decrementer
   template:
     metadata:
       labels:
-        app: redis-decrementer
+        app: webcenter-decrementer
     spec:
       containers:
-      - name: redis-decrementer
-        image: your-docker-repo/redis-decrementer:latest
+      - name: webcenter-decrementer
+        image: gcr.io/di-services/testimages/decrement:latest
         ports:
         - containerPort: 8080
