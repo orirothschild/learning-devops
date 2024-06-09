@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webcenter-decrement
+  name: webcenter-increment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: webcenter-decrement
+      app: webcenter-increment
   template:
     metadata:
       labels:
-        app: webcenter-decrement
+        app: webcenter-increment
     spec:
       containers:
-      - name: webcenter-decrement
-        image: gcr.io/di-services/testimages/decrement:latest
-        ports:
-        - containerPort: 8080
+      - name: webcenter-increment
+        image: gcr.io/di-services/testimages/incrementer:latest  # the image we created
         env:
         - name: REDIS_HOST
           value: "redis-service"
         - name: REDIS_PORT
           value: "6379" # values will be injected into the pod
+        ports:
+        - containerPort: 8080
 

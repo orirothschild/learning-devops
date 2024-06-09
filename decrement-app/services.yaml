@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: webcenter-incrementer-service
+  name: webcenter-increment-service
 spec:
   selector:
-    app: webcenter-incrementer
+    app: webcenter-increment
   ports:
     - protocol: TCP
       port: 80
@@ -14,10 +14,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webcenter-decrementer-service
+  name: webcenter-decrement-service
 spec:
   selector:
-    app: webcenter-decrementer
+    app: webcenter-decrement
   ports:
     - protocol: TCP
       port: 80

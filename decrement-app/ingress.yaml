@@ -10,24 +10,24 @@ metadata:
 spec:
   tls:
     - hosts:
-      - redis-app.services.deepinstinctweb.com  # Replace with your actual host
+      - incdec.services.deepinstinctweb.com  # Replace with your actual host
       secretName: tls-secret  # TLS secret for HTTPS
   rules:
-    - host: redis-app.services.deepinstinctweb.com  # Replace with your actual host
+    - host: incdec.services.deepinstinctweb.com  # Replace with your actual host
       http:
         paths:
         - pathType: Prefix
           path: "/increment"
           backend:
             service:
-              name: webcenter-incrementer-service
+              name: webcenter-increment-service
               port:
                 number: 80
         - pathType: Prefix
           path: "/decrement"
           backend:
             service:
-              name: webcenter-decrementer-service
+              name: webcenter-decrement-service
               port:
                 number: 80
 # tls:
